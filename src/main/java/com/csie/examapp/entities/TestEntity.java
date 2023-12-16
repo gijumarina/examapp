@@ -18,7 +18,6 @@ public class TestEntity {
     @Id
     @GeneratedValue
     @Getter @Setter private int id;
-    @Getter @Setter private String subject;
     @Getter @Setter private int groupId;
     
     @ManyToOne

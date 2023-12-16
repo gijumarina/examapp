@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Component
-
 public class UserDto {
     @Getter @Setter private UserEnum userType;
     @Getter @Setter private String firstName;
