@@ -10,11 +10,15 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Entity
-public class TestEntity {
+public class TestEntity implements Serializable {
     @Id
     @GeneratedValue
     @Getter @Setter private int id;
@@ -22,6 +26,7 @@ public class TestEntity {
     
     @ManyToOne
     @JoinColumn(name = "teacherId", referencedColumnName = "id")
+    @JsonIgnore
     @Getter @Setter private TeacherEntity teacher;
 
     @OneToMany(mappedBy="test")

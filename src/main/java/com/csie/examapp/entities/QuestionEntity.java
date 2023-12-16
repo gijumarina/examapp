@@ -17,8 +17,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.io.Serializable;
+
 @Entity
-public class QuestionEntity {
+public class QuestionEntity implements Serializable {
     @Id
     @GeneratedValue
     private int id;
@@ -30,6 +34,7 @@ public class QuestionEntity {
 
     @ManyToOne
     @JoinColumn(name="testId", referencedColumnName="id")
+    @JsonIgnore
     @Getter @Setter private TestEntity test;
 
     @OneToMany(mappedBy="question")

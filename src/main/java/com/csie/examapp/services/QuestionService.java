@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.csie.examapp.repositories.QuestionRepository;
 import com.csie.examapp.entities.TestEntity;
 import com.csie.examapp.dto.QuestionDto;
+import com.csie.examapp.dto.AnswerDto;
 import com.csie.examapp.entities.QuestionEntity;
+import com.csie.examapp.entities.AnswerEntity;
 
 @Service
 public class QuestionService {
@@ -27,6 +29,12 @@ public class QuestionService {
         question.setType(questionDto.getType());
         question.setTest(test);
         QuestionEntity newQuestion = questionRepository.save(question);
+        List<AnswerEntity> answers = new ArrayList<>();
+        for(AnswerDto answerDto : questionDto.getAnswers()) {
+            AnswerEntity answer = this.answerService.createAnswer(answerDto, newQuestion);
+            answers.add(answer);
+        }
+        newQuestion.setAnswers(answers);
         return newQuestion;
     }
     

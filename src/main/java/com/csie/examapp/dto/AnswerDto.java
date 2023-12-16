@@ -10,5 +10,5 @@ import lombok.Setter;
 @Component
 public class AnswerDto {
     @Getter @Setter private String text;
-    @Getter @Setter private boolean isCorrect;
+    @Getter @Setter private boolean correct;
 }
