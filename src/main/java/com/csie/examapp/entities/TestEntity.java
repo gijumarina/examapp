@@ -23,6 +23,7 @@ public class TestEntity implements Serializable {
     @GeneratedValue
     @Getter @Setter private int id;
     @Getter @Setter private int groupId;
+    @Getter @Setter private int minRequired;
     
     @ManyToOne
     @JoinColumn(name = "teacherId", referencedColumnName = "id")
@@ -31,4 +32,7 @@ public class TestEntity implements Serializable {
 
     @OneToMany(mappedBy="test")
     @Getter @Setter private List<QuestionEntity> questions;
+
+    @OneToMany(mappedBy="test")
+    @Getter @Setter private List<TestResultEntity> testResults;
 }

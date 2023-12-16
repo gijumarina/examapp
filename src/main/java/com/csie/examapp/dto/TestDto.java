@@ -11,5 +11,6 @@ import lombok.Setter;
 public class TestDto {
     @Getter @Setter private int groupId;
     @Getter @Setter private int teacherId;
+    @Getter @Setter private int minRequired;
     @Getter @Setter private List<QuestionDto> questions;
 }

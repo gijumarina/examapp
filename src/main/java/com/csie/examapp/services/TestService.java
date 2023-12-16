@@ -30,6 +30,7 @@ public class TestService {
         TeacherEntity teacher = teacherService.getById(testDto.getTeacherId());
         test.setTeacher(teacher);
         test.setGroupId(testDto.getGroupId());
+        test.setMinRequired(testDto.getMinRequired());
         TestEntity newTest = testRepository.save(test);
         List<QuestionEntity> questions = new ArrayList<>();
         for(QuestionDto question : testDto.getQuestions()) {
