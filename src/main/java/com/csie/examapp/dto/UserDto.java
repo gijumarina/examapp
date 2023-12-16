@@ -2,6 +2,8 @@ package com.csie.examapp.dto;
 
 import org.springframework.stereotype.Component;
 
+import com.csie.examapp.entities.UserEnum;
+
 import io.micrometer.common.lang.Nullable;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +11,7 @@ import lombok.Setter;
 @Component
 
 public class UserDto {
-    @Getter @Setter private String userType;
+    @Getter @Setter private UserEnum userType;
     @Getter @Setter private String firstName;
     @Getter @Setter private String lastName;
     @Getter @Setter private int age;

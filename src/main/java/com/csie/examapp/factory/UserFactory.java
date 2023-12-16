@@ -7,13 +7,13 @@ import com.csie.examapp.entities.UserEntity;
 
 public class UserFactory {
     public UserEntity createUser(UserDto userDto) {
-        switch (userDto.getUserType().toLowerCase()) {
-            case "student":
+        switch (userDto.getUserType()) {
+            case STUDENT:
                 return new StudentEntity(userDto.getFirstName(), userDto.getLastName(), userDto.getAge(),
-                        userDto.getCNP(), userDto.getEMail(), 1);
-            case "teacher":
+                        userDto.getCNP(), userDto.getEMail(), userDto.getGroupId());
+            case TEACHER:
                 return new TeacherEntity(userDto.getFirstName(), userDto.getLastName(), userDto.getAge(),
-                        userDto.getCNP(), userDto.getEMail(), "mate");
+                        userDto.getCNP(), userDto.getEMail(), userDto.getSubject());
             default:
                 throw new IllegalArgumentException("Invalid userType: " + userDto.getUserType());
         }
