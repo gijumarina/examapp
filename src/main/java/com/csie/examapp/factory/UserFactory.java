@@ -10,10 +10,10 @@ public class UserFactory {
         switch (userDto.getUserType()) {
             case STUDENT:
                 return new StudentEntity(userDto.getFirstName(), userDto.getLastName(), userDto.getAge(),
-                        userDto.getCNP(), userDto.getEMail(), userDto.getGroupId());
+                        userDto.getCNP(), userDto.getEMail(), userDto.getGroupId(), userDto.getPassword());
             case TEACHER:
                 return new TeacherEntity(userDto.getFirstName(), userDto.getLastName(), userDto.getAge(),
-                        userDto.getCNP(), userDto.getEMail(), userDto.getSubject());
+                        userDto.getCNP(), userDto.getEMail(), userDto.getSubject(), userDto.getPassword());
             default:
                 throw new IllegalArgumentException("Invalid userType: " + userDto.getUserType());
         }

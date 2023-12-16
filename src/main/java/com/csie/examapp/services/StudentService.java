@@ -27,6 +27,15 @@ public class StudentService {
         return this.studentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Can not find student with id: " + id));
     }
 
+    public StudentEntity getByEmail(String eMail) {
+        List<StudentEntity> students = this.studentRepository.findByEMail(eMail);
+        if(students.size() != 0) {
+            return students.get(0);
+        } else {
+            return new StudentEntity();
+        }
+    }
+
     public StudentEntity createStudent(StudentEntity studentEntity) {
         return studentRepository.save(studentEntity);
     }

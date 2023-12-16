@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.csie.examapp.dto.UserDto;
+import com.csie.examapp.dto.AuthDto;
 import com.csie.examapp.entities.UserEntity;
 import com.csie.examapp.services.UserService;
 
@@ -31,5 +32,10 @@ public class UserController {
     @PostMapping
     public UserEntity createUser(@RequestBody UserDto userDto) {
         return this.userService.createUser(userDto);
+    }
+
+    @PostMapping("/login")
+    public boolean createUser(@RequestBody AuthDto authDto) {
+        return this.userService.userLogIn(authDto);
     }
 }

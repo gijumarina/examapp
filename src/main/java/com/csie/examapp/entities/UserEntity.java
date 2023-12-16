@@ -23,13 +23,15 @@ public class UserEntity {
     int age;
     String CNP;
     String eMail;
+    String password;
 
-    public UserEntity(String firstName, String lastName, int age, String CNP, String eMail) {
+    public UserEntity(String firstName, String lastName, int age, String CNP, String eMail, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.CNP = CNP;
         this.eMail = eMail;
+        this.password = password;
     }
 
     public UserEntity() {

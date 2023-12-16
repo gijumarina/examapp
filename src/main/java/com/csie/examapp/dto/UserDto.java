@@ -16,6 +16,7 @@ public class UserDto {
     @Getter @Setter private int age;
     @Getter @Setter private String CNP;
     @Getter @Setter private String eMail;
+    @Getter @Setter private String password;
     @Nullable()
     @Getter @Setter private String subject;
     @Nullable()

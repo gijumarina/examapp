@@ -18,8 +18,8 @@ public class StudentEntity extends UserEntity {
     @OneToMany(mappedBy="student")
     @Getter @Setter private List<TestResultEntity> testResults;
 
-    public StudentEntity(String firstName, String lastName, int age, String CNP, String eMail, int groupId) {
-        super(firstName, lastName, age, CNP, eMail);
+    public StudentEntity(String firstName, String lastName, int age, String CNP, String eMail, int groupId, String password) {
+        super(firstName, lastName, age, CNP, eMail, password);
         this.groupId = groupId;
     }
 

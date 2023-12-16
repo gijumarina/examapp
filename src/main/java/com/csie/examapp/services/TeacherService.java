@@ -26,6 +26,15 @@ public class TeacherService {
         return this.teacherRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Can not find teacher with id: " + id));
     }
 
+    public TeacherEntity getByEmail(String eMail) {
+        List<TeacherEntity> teachers = this.teacherRepository.findByEMail(eMail);
+        if(teachers.size() != 0) {
+            return teachers.get(0);
+        } else {
+            return new TeacherEntity();
+        }
+    }
+
     public TeacherEntity createTeacher(TeacherEntity teacherEntity) {
         return teacherRepository.save(teacherEntity);
     }

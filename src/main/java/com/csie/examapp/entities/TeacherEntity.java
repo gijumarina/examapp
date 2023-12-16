@@ -18,8 +18,8 @@ public class TeacherEntity extends UserEntity {
     @OneToMany(mappedBy="teacher")
     @Getter @Setter private List<TestEntity> tests;
 
-    public TeacherEntity(String firstName, String lastName, int age, String CNP, String eMail, String subject) {
-        super(firstName, lastName, age, CNP, eMail);
+    public TeacherEntity(String firstName, String lastName, int age, String CNP, String eMail, String subject, String password) {
+        super(firstName, lastName, age, CNP, eMail, password);
         this.subject = subject;
     }
 
