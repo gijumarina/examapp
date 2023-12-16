@@ -5,7 +5,9 @@ import java.util.List;
 
 import com.csie.examapp.entities.TestEntity;
 import com.csie.examapp.entities.TeacherEntity;
+import com.csie.examapp.entities.QuestionEntity;
 import com.csie.examapp.dto.TestDto;
+import com.csie.examapp.dto.QuestionDto;
 import com.csie.examapp.repositories.TestRepository;
 
 import org.springframework.stereotype.Service;
@@ -29,7 +31,12 @@ public class TestService {
         test.setTeacher(teacher);
         test.setGroupId(testDto.getGroupId());
         TestEntity newTest = testRepository.save(test);
-
+        List<QuestionEntity> questions = new ArrayList<>();
+        for(QuestionDto question : testDto.getQuestions()) {
+            QuestionEntity newQuestion = this.questionService.createQuestion(question, newTest);
+            questions.add(newQuestion);
+        }
+        newTest.setQuestions(questions);
         return newTest;
     }
 }

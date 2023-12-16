@@ -14,6 +14,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 
 @Entity
 public class QuestionEntity {
@@ -23,6 +25,7 @@ public class QuestionEntity {
 
     @Getter @Setter private String text;
 
+    @Enumerated(EnumType.STRING)
     @Getter @Setter private QuestionType type;
 
     @ManyToOne
