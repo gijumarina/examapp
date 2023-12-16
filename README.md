@@ -57,7 +57,10 @@
     } <br />
   ] <br />
 } <br />
+</pre>
 
+
+<pre>
 ## RESULT CREATION EXAMPLE
 { <br />
   "studentId": ID_FROM_DATABASE, <br />
