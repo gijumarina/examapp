@@ -4,6 +4,7 @@
 ## SWAGGER: http://localhost:8080/swagger-ui/index.html
 
 ## TEST CREATION EXAMPLE
+<pre>
 { <br />
   "groupId": 1, <br />
   "teacherId": 1, <br />
@@ -82,3 +83,4 @@
     } <br />
   ] <br />
 }
+</pre>
