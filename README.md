@@ -60,8 +60,8 @@
 </pre>
 
 
-<pre>
 ## RESULT CREATION EXAMPLE
+<pre>
 { <br />
   "studentId": ID_FROM_DATABASE, <br />
   "testId": ID_FROM_DATABASE, <br />
