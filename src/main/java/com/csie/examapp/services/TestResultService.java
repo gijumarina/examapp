@@ -43,7 +43,7 @@ public class TestResultService {
 
     private int getResult(TestEntity test, List<TestAnswerDto> testsAnswerDto) {
         GradingStrategy gradingStrategy;
-        int score = 0;
+        int score = 1;
 
         for(QuestionEntity question : test.getQuestions()) {
             for(TestAnswerDto testAnswerDto : testsAnswerDto) {

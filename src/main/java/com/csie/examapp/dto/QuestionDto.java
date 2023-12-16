@@ -13,5 +13,6 @@ import lombok.Setter;
 public class QuestionDto {
     @Getter @Setter private String text;
     @Getter @Setter private QuestionType type;
+    @Getter @Setter private int score;
     @Getter @Setter private List<AnswerDto> answers;
 }

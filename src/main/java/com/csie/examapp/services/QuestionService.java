@@ -27,6 +27,7 @@ public class QuestionService {
         QuestionEntity question = new QuestionEntity();
         question.setText(questionDto.getText());
         question.setType(questionDto.getType());
+        question.setScore(questionDto.getScore());
         question.setTest(test);
         QuestionEntity newQuestion = questionRepository.save(question);
         List<AnswerEntity> answers = new ArrayList<>();
