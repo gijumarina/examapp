@@ -10,6 +10,8 @@ import com.csie.examapp.dto.TestDto;
 import com.csie.examapp.dto.QuestionDto;
 import com.csie.examapp.repositories.TestRepository;
 
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +25,10 @@ public class TestService {
         this.questionService = questionService;
         this.teacherService = teacherService;
         this.testRepository = testRepository;
+    }
+
+    public TestEntity getById(int id) {
+        return this.testRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Can not find test with id: " + id));
     }
 
     public TestEntity createTest(TestDto testDto) {

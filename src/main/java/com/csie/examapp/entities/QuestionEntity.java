@@ -25,12 +25,14 @@ import java.io.Serializable;
 public class QuestionEntity implements Serializable {
     @Id
     @GeneratedValue
-    private int id;
+    @Getter @Setter private int id;
 
     @Getter @Setter private String text;
 
     @Enumerated(EnumType.STRING)
     @Getter @Setter private QuestionType type;
+
+    @Getter @Setter private int score;
 
     @ManyToOne
     @JoinColumn(name="testId", referencedColumnName="id")
