@@ -1,6 +1,7 @@
 package com.csie.examapp.controllers;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public boolean createUser(@RequestBody AuthDto authDto) {
+    public Set<String> loginUser(@RequestBody AuthDto authDto) {
         return this.userService.userLogIn(authDto);
+    }
+
+    @PostMapping("/logOut")
+    public Set<String> logOutUser(@RequestBody String eMail) {
+        return this.userService.userLogOut(eMail);
     }
 }

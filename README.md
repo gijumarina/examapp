@@ -98,7 +98,7 @@
   "groupId": 102,
   "cnp": "123456789012",
   "email": "student1@test.com",
-  "password": "student1",
+  "password": "student1"
 }
 </pre>
 

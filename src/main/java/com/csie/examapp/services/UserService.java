@@ -7,9 +7,11 @@ import com.csie.examapp.entities.TeacherEntity;
 import com.csie.examapp.entities.UserEntity;
 import com.csie.examapp.entities.UserEnum;
 import com.csie.examapp.factory.UserFactory;
+import com.csie.examapp.singleton.ActiveUserRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -20,10 +22,12 @@ public class UserService {
 
     private StudentService studentService;
     private TeacherService teacherService;
+    private ActiveUserRegistry activeUserRegistry;
 
-    private UserService(StudentService studentService, TeacherService teacherService) {
+    private UserService(StudentService studentService, TeacherService teacherService, ActiveUserRegistry activeUserRegistry) {
         this.teacherService = teacherService;
         this.studentService = studentService;
+        this.activeUserRegistry = activeUserRegistry;
     }
 
     public List<UserEntity> findAll() {
@@ -52,9 +56,17 @@ public class UserService {
         return userEntity;
     }
 
-    public boolean userLogIn (AuthDto authDto) {
+    public Set<String> userLogIn(AuthDto authDto) {
         UserEntity userEntity = authDto.getType() == UserEnum.STUDENT ?
             studentService.getByEmail(authDto.getEMail()) : teacherService.getByEmail(authDto.getEMail());
-        return BCrypt.checkpw(authDto.getPassword(), userEntity.getPassword());
+        if (BCrypt.checkpw(authDto.getPassword(), userEntity.getPassword())) {
+            activeUserRegistry.registerUser(userEntity.getEMail());
+        }
+        return activeUserRegistry.getActiveUsers();
+    }
+
+    public Set<String> userLogOut(String eMail) {
+        activeUserRegistry.unregisterUser(eMail);
+        return activeUserRegistry.getActiveUsers();
     }
 }
