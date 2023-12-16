@@ -87,3 +87,27 @@
   ] <br />
 }
 </pre>
+
+## CREATE USER EXAMPLE
+<pre>
+{
+  "userType": "STUDENT",
+  "firstName": "Student1",
+  "lastName": "Student1",
+  "age": 21,
+  "groupId": 102,
+  "cnp": "123456789012",
+  "email": "student1@test.com",
+  "password": "student1",
+}
+</pre>
+
+
+## LOGIN USER EXAMPLE
+<pre>
+{
+  "password": "student1",
+  "type": "STUDENT",
+  "email": "student1@test.com"
+}
+</pre>
