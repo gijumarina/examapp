@@ -2,8 +2,6 @@ package com.csie.examapp.dto;
 
 import org.springframework.stereotype.Component;
 
-import com.csie.examapp.entities.QuestionType;
-
 import lombok.Getter;
 import lombok.Setter;
 

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.OneToMany;
