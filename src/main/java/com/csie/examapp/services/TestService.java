@@ -38,7 +38,7 @@ public class TestService {
     }
 
     public TestEntity getById(int id) {
-        return this.testRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Can not find test with id: " + id));
+        return this.testRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Constants.RESOURCE_NOT_FOUND + id));
     }
 
     public TestEntity createTest(TestDto testDto) {

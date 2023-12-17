@@ -13,6 +13,7 @@ import com.csie.examapp.strategy.GradingStrategy;
 import com.csie.examapp.strategy.MultipleChoiceGradingStrategy;
 import com.csie.examapp.strategy.OpenAnswerGradingStrategy;
 import com.csie.examapp.strategy.MultipleAnswersGradingStrategy;
+import com.csie.examapp.utils.Constants;
 
 import java.lang.UnsupportedOperationException;
 
@@ -56,7 +57,7 @@ public class TestResultService {
                             gradingStrategy = new MultipleAnswersGradingStrategy();
                             break;
                         default:
-                            throw new UnsupportedOperationException("Unsupported question type: " + question.getType());
+                            throw new UnsupportedOperationException(Constants.UNSUPPORTED_TYPE + question.getType());
                     }
 
                     score += gradingStrategy.calculateScore(question, testAnswerDto.getAnswersIds());

@@ -7,6 +7,7 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 
 import com.csie.examapp.entities.TeacherEntity;
 import com.csie.examapp.repositories.TeacherRepository;
+import com.csie.examapp.utils.Constants;
 
 @Service
 public class TeacherService {
@@ -23,7 +24,7 @@ public class TeacherService {
     }
 
     public TeacherEntity getById(int id) {
-        return this.teacherRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Can not find teacher with id: " + id));
+        return this.teacherRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Constants.RESOURCE_NOT_FOUND + id));
     }
 
     public TeacherEntity getByEmail(String eMail) {
