@@ -13,6 +13,7 @@ import com.csie.examapp.dto.TestStateDto;
 import com.csie.examapp.repositories.TestRepository;
 import com.csie.examapp.state.TestContext;
 import com.csie.examapp.state.TestContextManager;
+import com.csie.examapp.utils.Constants;
 
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 
@@ -71,11 +72,11 @@ public class TestService {
         TestEntity test = getById(testResultDto.getTestId());
         TestStateDto testStateDto = new TestStateDto();
         if(testContext == null) {
-            testStateDto.setMessage("Test not started yet");
+            testStateDto.setMessage(Constants.SUBMIT_TEST_NOT_STARTED);
             return testStateDto;
         }
         testStateDto.setMessage(testContext.submitAnswer());
-        if(testStateDto.getMessage() != "Cannot submit answers. The test has ended.") {
+        if(testStateDto.getMessage() != Constants.SUBMIT_TEST_ENDED) {
             testStateDto.setTestResult(this.testResultService.createTestResult(testResultDto, test));
         }
         return testStateDto;
@@ -85,7 +86,7 @@ public class TestService {
         TestContext testContext = testContextManager.getTestContext(id);
         TestStateDto testStateDto = new TestStateDto();
         if(testContext == null) {
-            testStateDto.setMessage("Test not started yet");
+            testStateDto.setMessage(Constants.SUBMIT_TEST_NOT_STARTED);
             return testStateDto;
         }
         testStateDto.setMessage(testContext.endTest());

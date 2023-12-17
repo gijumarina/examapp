@@ -1,19 +1,21 @@
 package com.csie.examapp.state;
 
+import com.csie.examapp.utils.Constants;
+
 public class TestStartState implements TestState {
     @Override
     public String start(TestContext context) {
         context.setState(new TestInProgressState());
-        return("Starting the test.");
+        return(Constants.START_TEST);
     }
 
     @Override
     public String submitAnswer(TestContext context) {
-        return("Cannot submit answers. The test has not started yet.");
+        return(Constants.SUBMIT_TEST_NOT_STARTED);
     }
 
     @Override
     public String end(TestContext context) {
-        return("Cannot end the test. The test has not started yet.");
+        return(Constants.END_TEST_NOT_STARTED);
     }
 }
