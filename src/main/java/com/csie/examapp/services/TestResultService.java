@@ -23,17 +23,15 @@ public class TestResultService {
     
     private TestResultRepository testResultRepository;
     private StudentService studentService;
-    private TestService testService;
-    private TestResultService(TestResultRepository testResultRepository, StudentService studentService, TestService testService) {
+
+    private TestResultService(TestResultRepository testResultRepository, StudentService studentService) {
         this.testResultRepository = testResultRepository;
         this.studentService = studentService;
-        this.testService = testService;
     }
 
-    public TestResultEntity createTestResult(TestResultDto testResultDto) {
+    public TestResultEntity createTestResult(TestResultDto testResultDto, TestEntity test) {
         TestResultEntity testResult = new TestResultEntity();
         StudentEntity student = this.studentService.getById(testResultDto.getStudentId());
-        TestEntity test = this.testService.getById(testResultDto.getTestId());
         testResult.setStudent(student);
         testResult.setTest(test);
         testResult.setResult(getResult(test, testResultDto.getTestAnswers()));

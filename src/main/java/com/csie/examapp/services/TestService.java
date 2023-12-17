@@ -7,8 +7,12 @@ import com.csie.examapp.entities.TestEntity;
 import com.csie.examapp.entities.TeacherEntity;
 import com.csie.examapp.entities.QuestionEntity;
 import com.csie.examapp.dto.TestDto;
+import com.csie.examapp.dto.TestResultDto;
 import com.csie.examapp.dto.QuestionDto;
+import com.csie.examapp.dto.TestStateDto;
 import com.csie.examapp.repositories.TestRepository;
+import com.csie.examapp.state.TestContext;
+import com.csie.examapp.state.TestContextManager;
 
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 
@@ -20,11 +24,16 @@ public class TestService {
     private QuestionService questionService;
     private TeacherService teacherService;
     private TestRepository testRepository;
+    private TestResultService testResultService;
+    private TestContextManager testContextManager;
     
-    private TestService(QuestionService questionService, TeacherService teacherService, TestRepository testRepository) {
+    private TestService(QuestionService questionService, TeacherService teacherService, TestRepository testRepository,
+        TestResultService testResultService, TestContextManager testContextManager) {
         this.questionService = questionService;
         this.teacherService = teacherService;
         this.testRepository = testRepository;
+        this.testResultService = testResultService;
+        this.testContextManager = testContextManager;
     }
 
     public TestEntity getById(int id) {
@@ -45,5 +54,41 @@ public class TestService {
         }
         newTest.setQuestions(questions);
         return newTest;
+    }
+
+    public TestStateDto startTest(int id) {
+        TestContext testContext = testContextManager.getTestContext(id);
+        if(testContext == null) {
+            testContext = testContextManager.createTestContext(id);
+        }
+        TestStateDto testStateDto = new TestStateDto();
+        testStateDto.setMessage(testContext.startTest());
+        return testStateDto;
+    }
+
+    public TestStateDto submitAnswer(TestResultDto testResultDto, int id) {
+        TestContext testContext = testContextManager.getTestContext(id);
+        TestEntity test = getById(testResultDto.getTestId());
+        TestStateDto testStateDto = new TestStateDto();
+        if(testContext == null) {
+            testStateDto.setMessage("Test not started yet");
+            return testStateDto;
+        }
+        testStateDto.setMessage(testContext.submitAnswer());
+        if(testStateDto.getMessage() != "Cannot submit answers. The test has ended.") {
+            testStateDto.setTestResult(this.testResultService.createTestResult(testResultDto, test));
+        }
+        return testStateDto;
+    }
+
+    public TestStateDto endTest(int id) {
+        TestContext testContext = testContextManager.getTestContext(id);
+        TestStateDto testStateDto = new TestStateDto();
+        if(testContext == null) {
+            testStateDto.setMessage("Test not started yet");
+            return testStateDto;
+        }
+        testStateDto.setMessage(testContext.endTest());
+        return testStateDto;
     }
 }
