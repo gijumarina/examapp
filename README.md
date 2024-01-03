@@ -55,7 +55,9 @@
         }
       ]
     }
-  ]
+  ],
+  "startTime": "2024-01-03T15:50:53.296Z",
+  "testDurationMinutes": 30
 }
 </pre>
 
