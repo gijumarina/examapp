@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import com.csie.examapp.entities.TestEntity;
+import com.csie.examapp.utils.Constants;
 
 public class StartTestCommand implements StudentCommand {
 
@@ -14,9 +15,14 @@ public class StartTestCommand implements StudentCommand {
         long minutesElapsed = ChronoUnit.MINUTES.between(test.getStartTime(), currentTime);
         
         if (minutesElapsed <= test.getTestDurationMinutes()) {
-            return("Test started successfully.");
+            if(studentId == -1) {
+                return(Constants.START_TEST_COMMAND);
+            } else {
+                int minutesRemaining = test.getTestDurationMinutes() - (int)minutesElapsed;
+                return(Constants.TEST_FOR_STUDENT_COMMAND + test.getId() + Constants.TEST_FOR_STUDENT + studentId + Constants.TEST_MINUTES_LEFT + minutesRemaining);
+            }
         } else {
-            return("Not within the allowed time window to start the test.");
+            return(Constants.TEST_NOT_IN_TIME_WINDOW);
         }
     }
 }

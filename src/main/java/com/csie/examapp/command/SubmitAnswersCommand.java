@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.csie.examapp.entities.TestEntity;
 import com.csie.examapp.dto.TestAnswerDto;
+import com.csie.examapp.utils.Constants;
 
 public class SubmitAnswersCommand implements StudentCommand {
     private List<TestAnswerDto> answers;
@@ -14,6 +15,6 @@ public class SubmitAnswersCommand implements StudentCommand {
 
     @Override
     public String execute(TestEntity test, int studentId) {
-        return("Answers submited for Test ID: " + test.getId() + ", Student ID: " + studentId);
+        return(Constants.SUBMIT_ANSWERS_FOR_TEST + test.getId() + Constants.SUBMIT_ANSWERS_FOR_STUDENT + studentId);
     }
 }

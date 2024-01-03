@@ -80,6 +80,24 @@ public class TestService {
         return testStateDto;
     }
 
+    public TestStateDto studentStartTest(int id, int studentId) {
+        TestContext testContext = testContextManager.getTestContext(id);
+        TestStateDto testStateDto = new TestStateDto();
+        if(testContext == null) {
+            testStateDto.setMessage("Test not started yet!");
+        } else {
+            if(testContext.isTestInProgress()) {
+                TestEntity test = getById(id);
+                StudentCommand startTestCommand = new StartTestCommand();
+                String resultCommand = executeCommand(startTestCommand, test, studentId);
+                testStateDto.setMessage(resultCommand);
+            } else {
+                testStateDto.setMessage("Test ended!");
+            }
+        }
+        return testStateDto;
+    }
+
     public TestStateDto submitAnswer(TestResultDto testResultDto, int id) {
         TestContext testContext = testContextManager.getTestContext(id);
         TestEntity test = getById(testResultDto.getTestId());
@@ -112,17 +130,24 @@ public class TestService {
         return testStateDto;
     }
 
+    public TestStateDto studentEndTest(int id, int studentId) {
+        TestContext testContext = testContextManager.getTestContext(id);
+        TestStateDto testStateDto = new TestStateDto();
+        if(testContext == null) {
+            testStateDto.setMessage(Constants.SUBMIT_TEST_NOT_STARTED);
+            return testStateDto;
+        }
+        TestEntity test = getById(id);
+        StudentCommand endTestCommand = new EndTestCommand();
+        String resultCommand = executeCommand(endTestCommand, test, studentId);
+        testStateDto.setMessage(testContext.endTest() + " " + resultCommand);
+        return testStateDto;
+    }
+
     public String executeCommand(StudentCommand command, TestEntity test, int studentId) {
         String result = command.execute(test, studentId);
         commandHistory.add(command);
         return result;
-    }
-
-    public void undoLastCommand() {
-        if (!commandHistory.isEmpty()) {
-            StudentCommand lastCommand = commandHistory.remove(commandHistory.size() - 1);
-            System.out.println("Undoing last command: " + lastCommand.getClass().getSimpleName());
-        }
     }
 
 }

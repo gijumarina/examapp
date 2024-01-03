@@ -16,4 +16,14 @@ public class Constants {
 
     public static final String RESOURCE_NOT_FOUND = "Can not find entity with the id: ";
     public static final String UNSUPPORTED_TYPE = "Unsupported type: ";
+
+    public static final String START_TEST_COMMAND = "Test started successfully.";
+    public static final String TEST_FOR_STUDENT_COMMAND = "Test with id: ";
+    public static final String TEST_FOR_STUDENT = ", started for student with id: ";
+    public static final String TEST_MINUTES_LEFT = ".Minutes left: ";
+    public static final String TEST_NOT_IN_TIME_WINDOW = "Not within the allowed time window to start the test.";
+    public static final String SUBMIT_ANSWERS_FOR_TEST = "Answers submited for Test ID: ";
+    public static final String SUBMIT_ANSWERS_FOR_STUDENT = ", Student ID: ";
+    public static final String END_TEST_COMMAND = "Test ended for all students!";
+    public static final String TEST_FOR_STUDENT_END = ", ended for student with id: ";
 }

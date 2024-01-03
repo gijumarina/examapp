@@ -1,7 +1,10 @@
 package com.csie.examapp.state;
 
+import lombok.Getter;
+
 public class TestContext {
     private TestState state;
+    @Getter boolean testInProgress = false;
 
     public TestContext() {
         this.state = new TestStartState();
@@ -12,6 +15,7 @@ public class TestContext {
     }
 
     public String startTest() {
+        this.testInProgress = true;
         return state.start(this);
     }
 
@@ -20,6 +24,7 @@ public class TestContext {
     }
 
     public String endTest() {
+        this.testInProgress = false;
         return state.end(this);
     }
 }

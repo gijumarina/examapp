@@ -29,6 +29,11 @@ public class TestController {
         return testService.startTest(id);
     }
 
+    @GetMapping("/start/{id}/{studentId}")
+    public TestStateDto startTest(@PathVariable int id, @PathVariable int studentId) {
+        return testService.studentStartTest(id, studentId);
+    }
+
     @PostMapping("/submitAnswer/{id}")
     public TestStateDto submitAnswer(@PathVariable int id, @RequestBody TestResultDto testResultDto) {
         return testService.submitAnswer(testResultDto, id);
@@ -37,6 +42,11 @@ public class TestController {
     @GetMapping("/end/{id}")
     public TestStateDto endTest(@PathVariable int id) {
         return testService.endTest(id);
+    }
+
+    @GetMapping("/end/{id}/{studentId}")
+    public TestStateDto endTest(@PathVariable int id, @PathVariable int studentId) {
+        return testService.studentEndTest(id, studentId);
     }
 
     @PostMapping
