@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.csie.examapp.command.StudentCommand;
 import com.csie.examapp.command.StartTestCommand;
-import com.csie.examapp.command.SubmitAnswersCommand;
 import com.csie.examapp.command.EndTestCommand;
 import com.csie.examapp.entities.TestEntity;
 import com.csie.examapp.entities.TeacherEntity;
@@ -73,10 +72,7 @@ public class TestService {
         }
         TestStateDto testStateDto = new TestStateDto();
         testStateDto.setMessage(testContext.startTest());
-        TestEntity test = getById(id);
-        StudentCommand startTestCommand = new StartTestCommand();
-        String resultCommand = executeCommand(startTestCommand, test, -1);
-        testStateDto.setMessage(testStateDto.getMessage() + " " + resultCommand);
+        testStateDto.setMessage(testStateDto.getMessage());
         return testStateDto;
     }
 
@@ -110,9 +106,7 @@ public class TestService {
         if(testStateDto.getMessage() != Constants.SUBMIT_TEST_ENDED) {
             testStateDto.setTestResult(this.testResultService.createTestResult(testResultDto, test));
         }
-        StudentCommand submitAnswersCommand = new SubmitAnswersCommand(testResultDto.getTestAnswers());
-        String resultCommand = executeCommand(submitAnswersCommand, test, testResultDto.getStudentId());
-        testStateDto.setMessage(testStateDto.getMessage() + " " + resultCommand);
+        testStateDto.setMessage(testStateDto.getMessage());
         return testStateDto;
     }
 
@@ -123,10 +117,7 @@ public class TestService {
             testStateDto.setMessage(Constants.SUBMIT_TEST_NOT_STARTED);
             return testStateDto;
         }
-        TestEntity test = getById(id);
-        StudentCommand endTestCommand = new EndTestCommand();
-        String resultCommand = executeCommand(endTestCommand, test, -1);
-        testStateDto.setMessage(testContext.endTest() + " " + resultCommand);
+        testStateDto.setMessage(testContext.endTest());
         return testStateDto;
     }
 
