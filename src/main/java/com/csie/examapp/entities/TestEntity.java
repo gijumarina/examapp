@@ -17,6 +17,8 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+import java.time.LocalDateTime;
+
 @Entity
 public class TestEntity implements Serializable {
     @Id
@@ -24,6 +26,8 @@ public class TestEntity implements Serializable {
     @Getter @Setter private int id;
     @Getter @Setter private int groupId;
     @Getter @Setter private int minRequired;
+    @Getter @Setter private LocalDateTime startTime;
+    @Getter @Setter private int testDurationMinutes;
     
     @ManyToOne
     @JoinColumn(name = "teacherId", referencedColumnName = "id")

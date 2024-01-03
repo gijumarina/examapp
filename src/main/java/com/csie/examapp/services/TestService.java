@@ -3,6 +3,10 @@ package com.csie.examapp.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.csie.examapp.command.StudentCommand;
+import com.csie.examapp.command.StartTestCommand;
+import com.csie.examapp.command.SubmitAnswersCommand;
+import com.csie.examapp.command.EndTestCommand;
 import com.csie.examapp.entities.TestEntity;
 import com.csie.examapp.entities.TeacherEntity;
 import com.csie.examapp.entities.QuestionEntity;
@@ -14,6 +18,8 @@ import com.csie.examapp.repositories.TestRepository;
 import com.csie.examapp.state.TestContext;
 import com.csie.examapp.state.TestContextManager;
 import com.csie.examapp.utils.Constants;
+
+import java.time.LocalDateTime;
 
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 
@@ -27,6 +33,7 @@ public class TestService {
     private TestRepository testRepository;
     private TestResultService testResultService;
     private TestContextManager testContextManager;
+    private List<StudentCommand> commandHistory = new ArrayList<>();
     
     private TestService(QuestionService questionService, TeacherService teacherService, TestRepository testRepository,
         TestResultService testResultService, TestContextManager testContextManager) {
@@ -47,6 +54,8 @@ public class TestService {
         test.setTeacher(teacher);
         test.setGroupId(testDto.getGroupId());
         test.setMinRequired(testDto.getMinRequired());
+        test.setStartTime(testDto.getStartTime());
+        test.setTestDurationMinutes(testDto.getTestDurationMinutes());
         TestEntity newTest = testRepository.save(test);
         List<QuestionEntity> questions = new ArrayList<>();
         for(QuestionDto question : testDto.getQuestions()) {
@@ -64,6 +73,10 @@ public class TestService {
         }
         TestStateDto testStateDto = new TestStateDto();
         testStateDto.setMessage(testContext.startTest());
+        TestEntity test = getById(id);
+        StudentCommand startTestCommand = new StartTestCommand();
+        String resultCommand = executeCommand(startTestCommand, test, -1);
+        testStateDto.setMessage(testStateDto.getMessage() + " " + resultCommand);
         return testStateDto;
     }
 
@@ -79,6 +92,9 @@ public class TestService {
         if(testStateDto.getMessage() != Constants.SUBMIT_TEST_ENDED) {
             testStateDto.setTestResult(this.testResultService.createTestResult(testResultDto, test));
         }
+        StudentCommand submitAnswersCommand = new SubmitAnswersCommand(testResultDto.getTestAnswers());
+        String resultCommand = executeCommand(submitAnswersCommand, test, testResultDto.getStudentId());
+        testStateDto.setMessage(testStateDto.getMessage() + " " + resultCommand);
         return testStateDto;
     }
 
@@ -89,7 +105,24 @@ public class TestService {
             testStateDto.setMessage(Constants.SUBMIT_TEST_NOT_STARTED);
             return testStateDto;
         }
-        testStateDto.setMessage(testContext.endTest());
+        TestEntity test = getById(id);
+        StudentCommand endTestCommand = new EndTestCommand();
+        String resultCommand = executeCommand(endTestCommand, test, -1);
+        testStateDto.setMessage(testContext.endTest() + " " + resultCommand);
         return testStateDto;
     }
+
+    public String executeCommand(StudentCommand command, TestEntity test, int studentId) {
+        String result = command.execute(test, studentId);
+        commandHistory.add(command);
+        return result;
+    }
+
+    public void undoLastCommand() {
+        if (!commandHistory.isEmpty()) {
+            StudentCommand lastCommand = commandHistory.remove(commandHistory.size() - 1);
+            System.out.println("Undoing last command: " + lastCommand.getClass().getSimpleName());
+        }
+    }
+
 }
