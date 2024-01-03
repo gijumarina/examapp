@@ -92,7 +92,7 @@ public class TestService {
                 String resultCommand = executeCommand(startTestCommand, test, studentId);
                 testStateDto.setMessage(resultCommand);
             } else {
-                testStateDto.setMessage("Test ended!");
+                testStateDto.setMessage(Constants.END_TEST_END);
             }
         }
         return testStateDto;
