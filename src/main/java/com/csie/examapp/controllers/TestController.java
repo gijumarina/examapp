@@ -14,14 +14,29 @@ import com.csie.examapp.dto.TestStateDto;
 import com.csie.examapp.entities.TestEntity;
 import com.csie.examapp.services.TestService;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 @RestController
 @RequestMapping("/test")
+@CrossOrigin(origins = "http://localhost:5173/")
 public class TestController {
     @Autowired
     private TestService testService;
 
     private TestController(TestService testService) {
         this.testService = testService;
+    }
+
+    @GetMapping
+    public List<TestEntity> findAll() {
+        return testService.findAll();
+    }
+
+    @GetMapping("/byTeacher/{teacherId}")
+    public List<TestEntity> getByTeacher(@PathVariable int teacherId) {
+        return testService.findByTeacher(teacherId);
     }
 
     @GetMapping("/start/{id}")

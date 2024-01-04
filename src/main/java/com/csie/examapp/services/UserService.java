@@ -56,6 +56,10 @@ public class UserService {
         return userEntity;
     }
 
+    public Set<String> getActiveUsers() {
+        return activeUserRegistry.getActiveUsers();
+    }
+
     public Set<String> userLogIn(AuthDto authDto) {
         UserEntity userEntity = authDto.getType() == UserEnum.STUDENT ?
             studentService.getByEmail(authDto.getEMail()) : teacherService.getByEmail(authDto.getEMail());

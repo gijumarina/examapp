@@ -15,8 +15,11 @@ import com.csie.examapp.dto.AuthDto;
 import com.csie.examapp.entities.UserEntity;
 import com.csie.examapp.services.UserService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:5173/")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -28,6 +31,11 @@ public class UserController {
     @GetMapping
     public List<UserEntity> getUsers() {
         return this.userService.findAll();
+    }
+
+    @GetMapping("/active")
+    public Set<String> getActiveUsers() {
+        return this.userService.getActiveUsers();
     }
 
     @PostMapping

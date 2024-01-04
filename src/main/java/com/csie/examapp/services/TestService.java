@@ -47,6 +47,15 @@ public class TestService {
         return this.testRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Constants.RESOURCE_NOT_FOUND + id));
     }
 
+    public List<TestEntity> findAll() {
+        return this.testRepository.findAll();
+    }
+
+    public List<TestEntity> findByTeacher(int id) {
+        TeacherEntity teacher = this.teacherService.getById(id);
+        return this.testRepository.findByTeacher(teacher);
+    }
+
     public TestEntity createTest(TestDto testDto) {
         TestEntity test = new TestEntity();
         TeacherEntity teacher = teacherService.getById(testDto.getTeacherId());
