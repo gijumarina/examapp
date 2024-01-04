@@ -34,6 +34,11 @@ public class TestController {
         return testService.findAll();
     }
 
+    @GetMapping("/{id}")
+    public TestEntity getById(@PathVariable int id) {
+        return testService.getById(id);
+    }
+
     @GetMapping("/byTeacher/{teacherId}")
     public List<TestEntity> getByTeacher(@PathVariable int teacherId) {
         return testService.findByTeacher(teacherId);

@@ -123,7 +123,7 @@ public class TestService {
         TestContext testContext = testContextManager.getTestContext(id);
         TestStateDto testStateDto = new TestStateDto();
         if(testContext == null) {
-            testStateDto.setMessage(Constants.SUBMIT_TEST_NOT_STARTED);
+            testStateDto.setMessage(Constants.END_TEST_NOT_STARTED);
             return testStateDto;
         }
         testStateDto.setMessage(testContext.endTest());
