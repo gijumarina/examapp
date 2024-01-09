@@ -19,8 +19,12 @@ import java.io.Serializable;
 
 import java.time.LocalDateTime;
 
+import com.csie.examapp.visitor.ExamVisitable;
+import com.csie.examapp.visitor.ExamReportVisitor;
+import com.csie.examapp.dto.ExamReportDto;
+
 @Entity
-public class TestEntity implements Serializable {
+public class TestEntity implements ExamVisitable, Serializable {
     @Id
     @GeneratedValue
     @Getter @Setter private int id;
@@ -39,4 +43,9 @@ public class TestEntity implements Serializable {
 
     @OneToMany(mappedBy="test")
     @Getter @Setter private List<TestResultEntity> testResults;
+
+    @Override
+    public ExamReportDto accept(ExamReportVisitor visitor) {
+        return visitor.visit(this);
+    }
 }

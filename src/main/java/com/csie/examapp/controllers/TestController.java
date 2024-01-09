@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.csie.examapp.dto.TestDto;
 import com.csie.examapp.dto.TestResultDto;
 import com.csie.examapp.dto.TestStateDto;
+import com.csie.examapp.dto.ExamReportDto;
 import com.csie.examapp.entities.TestEntity;
 import com.csie.examapp.services.TestService;
 
@@ -72,5 +73,10 @@ public class TestController {
     @PostMapping
     public TestEntity createTest(@RequestBody TestDto testDto) {
         return this.testService.createTest(testDto);
+    }
+
+    @GetMapping("/report/{id}")
+    public ExamReportDto getReport(@PathVariable int id) {
+        return testService.getReport(id);
     }
 }

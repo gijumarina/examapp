@@ -17,6 +17,9 @@ import com.csie.examapp.repositories.TestRepository;
 import com.csie.examapp.state.TestContext;
 import com.csie.examapp.state.TestContextManager;
 import com.csie.examapp.utils.Constants;
+import com.csie.examapp.visitor.ExamReportGenerator;
+import com.csie.examapp.visitor.ExamReportVisitor;
+import com.csie.examapp.dto.ExamReportDto;
 
 import java.time.LocalDateTime;
 
@@ -72,6 +75,12 @@ public class TestService {
         }
         newTest.setQuestions(questions);
         return newTest;
+    }
+
+    public ExamReportDto getReport(int id) {
+        TestEntity test = testRepository.getById(id);
+        ExamReportVisitor examReportGenerator = new ExamReportGenerator();
+        return test.accept(examReportGenerator);
     }
 
     public TestStateDto startTest(int id) {
